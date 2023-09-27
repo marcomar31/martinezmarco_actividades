@@ -53,7 +53,7 @@ class RegisterView extends StatelessWidget {
         //Botón cancelar
         Padding(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: TextButton(
-            onPressed: () {  },
+            onPressed: onClickCancelar,
             child: Text("CANCELAR")
             ,)
           ,)
@@ -65,4 +65,8 @@ class RegisterView extends StatelessWidget {
     return scaffold;
   }
 
+
+  void onClickCancelar() {
+    Navigator.of(_context).popAndPushNamed('/loginview');
+  }
 }
