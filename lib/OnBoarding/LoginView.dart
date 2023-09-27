@@ -42,7 +42,7 @@ class LoginView extends StatelessWidget {
         //Botón registrar
         Padding(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: TextButton(
-            onPressed: () {  },
+            onPressed: onClickRegistrar,
             child: Text("REGISTRAR")
             ,)
           ,)
@@ -54,4 +54,8 @@ class LoginView extends StatelessWidget {
     return scaffold;
   }
 
+
+  void onClickRegistrar() {
+    Navigator.of(_context).popAndPushNamed('/registerview');
+  }
 }
