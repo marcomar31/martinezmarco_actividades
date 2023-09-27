@@ -29,7 +29,24 @@ class LoginView extends StatelessWidget {
           ),
           obscureText: true,
         ),
-      )
+      ),
+
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        //Botón aceptar
+        Padding(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: TextButton(
+            onPressed: () {  },
+            child: Text("ACEPTAR")
+          ,)
+        ,),
+        //Botón registrar
+        Padding(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: TextButton(
+            onPressed: () {  },
+            child: Text("REGISTRAR")
+            ,)
+          ,)
+      ],)
     ],);
 
     Scaffold scaffold = Scaffold(body: column,);
