@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/LoginView.dart';
+import 'package:martinezmarco_actividades1/OnBoarding/RegisterView.dart';
 
 class Actividades1 extends StatelessWidget {
   @override
@@ -9,6 +10,7 @@ class Actividades1 extends StatelessWidget {
       initialRoute: '/loginview',
       routes: {
         '/loginview': (context) => LoginView(),
+        '/registerview': (context) => RegisterView(),
       },
     );
     return materialApp;
