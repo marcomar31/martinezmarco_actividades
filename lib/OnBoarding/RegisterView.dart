@@ -6,6 +6,7 @@ class RegisterView extends StatelessWidget {
   late BuildContext _context;
   TextEditingController tecUsername = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
+  TextEditingController tecRepassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class RegisterView extends StatelessWidget {
       //CONFIRMAR CONTRASEÑA
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
         child: TextField(
+          controller: tecRepassword,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Repita su contraseña',
@@ -70,24 +72,31 @@ class RegisterView extends StatelessWidget {
     return scaffold;
   }
 
+  SnackBar snackBar = SnackBar(content: Text("Las contraseñas no coinciden"));
+
   void onClickCancelar() {
     Navigator.of(_context).popAndPushNamed('/loginview');
   }
 
   void onClickRegistrar() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: tecUsername.text,
-        password: tecPassword.text,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+    if (tecUsername.text == tecRepassword.text) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: tecUsername.text,
+          password: tecPassword.text,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
+    } else {
+      ScaffoldMessenger.of(_context).showSnackBar(snackBar);
     }
+
   }
 }
