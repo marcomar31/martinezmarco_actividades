@@ -72,30 +72,32 @@ class RegisterView extends StatelessWidget {
     return scaffold;
   }
 
-  SnackBar snackBar = SnackBar(content: Text("Las contraseñas no coinciden"));
-
   void onClickCancelar() {
     Navigator.of(_context).popAndPushNamed('/loginview');
   }
 
   void onClickRegistrar() async {
-    if (tecUsername.text == tecRepassword.text) {
+    if (tecPassword.text == tecRepassword.text) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: tecUsername.text,
           password: tecPassword.text,
         );
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Usuario registrado con éxito!")));
+        Future.delayed(Duration(seconds: 6), () {
+          Navigator.of(_context).popAndPushNamed("/loginview");
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Las contraseñas es demasiado débil")));
         } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+          ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("El email ya está en uso")));
         }
       } catch (e) {
         print(e);
       }
     } else {
-      ScaffoldMessenger.of(_context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Las contraseñas no coinciden")));
     }
 
   }
