@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
 
   late BuildContext _context;
+  TextEditingController tecUsername = TextEditingController();
+  TextEditingController tecPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +16,7 @@ class LoginView extends StatelessWidget {
       //USUARIO
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
         child: TextField(
+          controller: tecUsername,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escriba su usuario',
@@ -23,6 +27,7 @@ class LoginView extends StatelessWidget {
       //CONTRASEÑA
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
         child: TextField(
+          controller: tecPassword,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escriba su contraseña',
@@ -35,7 +40,7 @@ class LoginView extends StatelessWidget {
         //Botón aceptar
         Padding(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: TextButton(
-            onPressed: () {  },
+            onPressed: onClickAceptar,
             child: Text("ACEPTAR")
           ,)
         ,),
@@ -57,5 +62,21 @@ class LoginView extends StatelessWidget {
 
   void onClickRegistrar() {
     Navigator.of(_context).popAndPushNamed('/registerview');
+  }
+
+  void onClickAceptar() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: tecUsername.text,
+          password: tecPassword.text
+      );
+      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Usuario loggeado exitosamente!")));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Ese usuario no está registrado")));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Las contraseña es incorrecta")));
+      }
+    }
   }
 }
