@@ -71,6 +71,7 @@ class LoginView extends StatelessWidget {
           password: tecPassword.text
       );
       ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Usuario loggeado exitosamente!")));
+      Navigator.of(_context).popAndPushNamed('/homeview');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Ese usuario no está registrado")));
