@@ -12,7 +12,7 @@ class LoginView extends StatelessWidget {
     // TODO: implement build
     _context = context;
 
-    Column column = new Column(children: [
+    return Scaffold(body: Column(children: [
       //USUARIO
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
         child: TextField(
@@ -42,8 +42,8 @@ class LoginView extends StatelessWidget {
           child: TextButton(
             onPressed: onClickAceptar,
             child: Text("ACEPTAR")
-          ,)
-        ,),
+            ,)
+          ,),
         //Botón registrar
         Padding(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: TextButton(
@@ -52,11 +52,15 @@ class LoginView extends StatelessWidget {
             ,)
           ,)
       ],)
-    ],);
-
-    Scaffold scaffold = Scaffold(body: column,);
-
-    return scaffold;
+    ],),
+        appBar: AppBar(
+          title: const Text("LOGIN"),
+          centerTitle: true,
+          shadowColor: Colors.blue,
+          backgroundColor: Colors.greenAccent.withOpacity(0.4),
+          automaticallyImplyLeading: false,
+        )
+    );
   }
 
 
