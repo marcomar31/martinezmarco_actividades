@@ -20,6 +20,7 @@ class HomeView extends StatelessWidget {
         backgroundColor: Colors.greenAccent.withOpacity(0.4),
         automaticallyImplyLeading: false,
       ),
+      backgroundColor: Colors.tealAccent,
     );
   }
 

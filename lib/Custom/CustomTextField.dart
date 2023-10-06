@@ -5,16 +5,12 @@ class CustomTextField extends StatelessWidget {
   String hintText;
   TextEditingController tec;
   bool blIsPassword;
-  double dPaddingH;
-  double dPaddingV;
 
   // Constructor que acepta el hintText como parámetro
   CustomTextField({Key? key,
     this.hintText="",
     required this.tec,
     this.blIsPassword = false,
-    this.dPaddingH = 60,
-    this.dPaddingV = 15,
   }) :super(key: key);
 
   @override
@@ -23,7 +19,9 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: tec,
       decoration: InputDecoration(
-            border: OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
             hintText: hintText,
       ),
       obscureText: blIsPassword,

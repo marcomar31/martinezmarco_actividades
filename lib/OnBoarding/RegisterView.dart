@@ -16,19 +16,23 @@ class RegisterView extends StatelessWidget {
     _context = context;
 
     return Scaffold(body: Column(children: [
+      Padding(padding: EdgeInsets.fromLTRB(50, 30, 50, 10),
+        child: Text("NECESITARÁS CREAR TUS CREDENCIALES PARA POSTERIORMENTE ACCEDER"),
+      ),
+
       //USUARIO
-      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: CustomTextField(tec: tecUsername, hintText: 'Escriba su usuario',),
       ),
 
       //CONTRASEÑA
-      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: CustomTextField(tec: tecPassword, blIsPassword: true, hintText: 'Escriba su contraseña',),
 
       ),
 
       //CONFIRMAR CONTRASEÑA
-      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: CustomTextField(tec: tecRepassword, blIsPassword: true, hintText: 'Repita su contraseña',),
       ),
 
@@ -56,6 +60,7 @@ class RegisterView extends StatelessWidget {
         backgroundColor: Colors.greenAccent.withOpacity(0.4),
         automaticallyImplyLeading: false,
       ),
+      backgroundColor: Colors.tealAccent,
     );
   }
 
@@ -86,6 +91,5 @@ class RegisterView extends StatelessWidget {
     } else {
       ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Las contraseñas no coinciden")));
     }
-
   }
 }
