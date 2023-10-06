@@ -13,7 +13,7 @@ class RegisterView extends StatelessWidget {
     // TODO: implement build
     _context = context;
 
-    Column column = new Column(children: [
+    return Scaffold(body: Column(children: [
       //USUARIO
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
         child: TextField(
@@ -65,11 +65,15 @@ class RegisterView extends StatelessWidget {
             ,)
           ,)
       ],)
-    ],);
-
-    Scaffold scaffold = Scaffold(body: column,);
-
-    return scaffold;
+    ],),
+        appBar: AppBar(
+    title: const Text("REGISTRAR"),
+    centerTitle: true,
+    shadowColor: Colors.blue,
+    backgroundColor: Colors.greenAccent.withOpacity(0.4),
+    automaticallyImplyLeading: false,
+    ),
+    );
   }
 
   void onClickCancelar() {
