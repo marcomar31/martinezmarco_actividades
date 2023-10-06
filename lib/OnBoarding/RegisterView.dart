@@ -72,7 +72,7 @@ class RegisterView extends StatelessWidget {
     if (tecPassword.text == tecRepassword.text) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: tecUsername.text,
+          email: tecUsername.text.toLowerCase(),
           password: tecPassword.text,
         );
         ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Usuario registrado con éxito!")));

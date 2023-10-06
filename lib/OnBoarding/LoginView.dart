@@ -63,7 +63,7 @@ class LoginView extends StatelessWidget {
   void onClickAceptar() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: tecUsername.text,
+          email: tecUsername.text.toLowerCase(),
           password: tecPassword.text
       );
       ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Usuario loggeado exitosamente!")));
