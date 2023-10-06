@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../Custom/CustomTextField.dart';
+
 class RegisterView extends StatelessWidget {
 
   late BuildContext _context;
@@ -16,37 +18,18 @@ class RegisterView extends StatelessWidget {
     return Scaffold(body: Column(children: [
       //USUARIO
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-        child: TextField(
-          controller: tecUsername,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escriba su usuario',
-          ),
-        ),
+        child: CustomTextField(tec: tecUsername, hintText: 'Escriba su usuario',),
       ),
 
       //CONTRASEÑA
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-        child: TextField(
-          controller: tecPassword,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escriba su contraseña',
-          ),
-          obscureText: true,
-        ),
+        child: CustomTextField(tec: tecPassword, blIsPassword: true, hintText: 'Escriba su contraseña',),
+
       ),
 
       //CONFIRMAR CONTRASEÑA
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-        child: TextField(
-          controller: tecRepassword,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Repita su contraseña',
-          ),
-          obscureText: true,
-        ),
+        child: CustomTextField(tec: tecRepassword, blIsPassword: true, hintText: 'Repita su contraseña',),
       ),
 
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [

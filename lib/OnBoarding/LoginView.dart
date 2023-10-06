@@ -16,25 +16,12 @@ class LoginView extends StatelessWidget {
     return Scaffold(body: Column(children: [
       //USUARIO
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-        child: TextField(
-          controller: tecUsername,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escriba su usuario',
-          ),
-        ),
+        child: CustomTextField(tec: tecUsername, hintText: 'Escriba su usuario',),
       ),
 
       //CONTRASEÑA
       Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-        child: TextField(
-          controller: tecPassword,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Escriba su contraseña',
-          ),
-          obscureText: true,
-        ),
+        child: CustomTextField(tec: tecPassword, blIsPassword: true, hintText: 'Escriba su contraseña',),
       ),
 
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
