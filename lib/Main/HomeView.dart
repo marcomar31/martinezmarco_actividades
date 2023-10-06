@@ -12,7 +12,14 @@ class HomeView extends StatelessWidget {
         Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
             child: Text('BIENVENIDO!!')),
             ]),
-          ],)
+          ],),
+      appBar: AppBar(
+        title: const Text("HOME"),
+        centerTitle: true,
+        shadowColor: Colors.blue,
+        backgroundColor: Colors.greenAccent.withOpacity(0.4),
+        automaticallyImplyLeading: false,
+      ),
     );
   }
 

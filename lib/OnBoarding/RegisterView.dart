@@ -66,13 +66,13 @@ class RegisterView extends StatelessWidget {
           ,)
       ],)
     ],),
-        appBar: AppBar(
-    title: const Text("REGISTRAR"),
-    centerTitle: true,
-    shadowColor: Colors.blue,
-    backgroundColor: Colors.greenAccent.withOpacity(0.4),
-    automaticallyImplyLeading: false,
-    ),
+      appBar: AppBar(
+        title: const Text("REGISTRAR"),
+        centerTitle: true,
+        shadowColor: Colors.blue,
+        backgroundColor: Colors.greenAccent.withOpacity(0.4),
+        automaticallyImplyLeading: false,
+      ),
     );
   }
 
