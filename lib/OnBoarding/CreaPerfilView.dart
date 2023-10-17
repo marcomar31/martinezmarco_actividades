@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../Custom/CustomTextField.dart';
+import '../FirestoreObjects/FbUsuario.dart';
 
 class CreaPerfilView extends StatelessWidget {
   late BuildContext _context;
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   TextEditingController tecNombre = TextEditingController();
   TextEditingController tecEdad = TextEditingController();
@@ -61,7 +66,7 @@ class CreaPerfilView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: onClickAceptar,
                   child: Text("ACEPTAR"),
                 ),
               ),
@@ -89,5 +94,21 @@ class CreaPerfilView extends StatelessWidget {
 
   void onClickCancelar() {
     Navigator.of(_context).popAndPushNamed('/loginview');
+  }
+
+  void onClickAceptar() {
+    bool excepcion = false;
+    FbUsuario usuario = new FbUsuario(nombre: tecNombre.text, edad: int.parse(tecEdad.text), altura: double.parse(tecAltura.text));
+    try {
+      //UID del usuario que está logeado
+      String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
+      db.collection('Usuarios').doc(uidUsuario).set(usuario.toFirestore());
+    } on Exception {
+      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Se ha producido un error al completar el perfil del usuario")));
+      excepcion = true;
+    }
+    if (!excepcion) {
+      Navigator.of(_context).popAndPushNamed("/homeview");
+    }
   }
 }
