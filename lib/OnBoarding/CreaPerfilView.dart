@@ -69,7 +69,7 @@ class CreaPerfilView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: onClickCancelar,
                   child: Text("CANCELAR"),
                 ),
               ),
@@ -85,5 +85,9 @@ class CreaPerfilView extends StatelessWidget {
       ),
       backgroundColor: Color.fromRGBO(128, 179, 255, 1),
     );
+  }
+
+  void onClickCancelar() {
+    Navigator.of(_context).popAndPushNamed('/loginview');
   }
 }
