@@ -2,4 +2,4 @@
 
 Actividad 1. Marco Martínez del Álamo (Commits 1 - 20).
 
-Actividad 2. Marco Martínez del Álamo (Commits 21 - 37).
+Actividad 2. Marco Martínez del Álamo (Commits 21 - 38).
