@@ -10,7 +10,7 @@ class Actividades1 extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     MaterialApp materialApp = MaterialApp(title: "Actividades Marco",
-      initialRoute: '/loginview',
+      initialRoute: '/splashview',
       routes: {
         '/loginview': (context) => LoginView(),
         '/registerview': (context) => RegisterView(),
