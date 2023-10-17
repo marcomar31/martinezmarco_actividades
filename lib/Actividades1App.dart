@@ -8,7 +8,7 @@ class Actividades1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    MaterialApp materialApp = MaterialApp(title: "Actividades 1",
+    MaterialApp materialApp = MaterialApp(title: "Actividades Marco",
       initialRoute: '/creaperfilview',
       routes: {
         '/loginview': (context) => LoginView(),
