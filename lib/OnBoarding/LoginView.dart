@@ -47,11 +47,10 @@ class LoginView extends StatelessWidget {
         appBar: AppBar(
           title: const Text("LOGIN"),
           centerTitle: true,
-          shadowColor: Colors.blue,
-          backgroundColor: Colors.greenAccent.withOpacity(0.4),
+          backgroundColor: Color.fromRGBO(104, 126, 255, 1),
           automaticallyImplyLeading: false,
         ),
-      backgroundColor: Colors.tealAccent,
+      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
     );
   }
 

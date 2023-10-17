@@ -7,13 +7,12 @@ class CreaPerfilView extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: const Text("CREA TU PERFIL"),
+        title: const Text("CREAR USUARIO"),
         centerTitle: true,
-        shadowColor: Colors.blue,
-        backgroundColor: Colors.greenAccent.withOpacity(0.4),
+        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Colors.tealAccent,
+      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
     );
   }
 
