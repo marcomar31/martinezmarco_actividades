@@ -9,8 +9,9 @@ class HomeView extends StatelessWidget {
         body: Column(
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-            child: Text('BIENVENIDO!!')),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16), child:
+                Text('BIENVENIDO!!'),
+              ),
             ]),
           ],),
       appBar: AppBar(
