@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Custom/PostCellView.dart';
+import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
 
 class HomeView extends StatefulWidget {
@@ -36,12 +37,13 @@ class _HomeViewState extends State<HomeView> {
       body:
       Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16), child:
         Center(child:
-          ListView.separated(
+          /*ListView.separated(
             padding: EdgeInsets.all(80),
             itemCount: posts.length,
             itemBuilder: creadorDeItemLista,
             separatorBuilder: creadorDeSeparadorLista,
-          ),
+          ),*/
+        PostGridCellView(posts: posts),
         ),
       ),
       appBar: AppBar(
