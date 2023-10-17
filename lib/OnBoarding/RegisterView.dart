@@ -14,26 +14,47 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     _context = context;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(body: Column(children: [
       Padding(padding: EdgeInsets.fromLTRB(50, 30, 50, 10),
         child: Text("NECESITARÁS CREAR TUS CREDENCIALES PARA POSTERIORMENTE ACCEDER"),
       ),
 
-      //USUARIO
-      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-        child: CustomTextField(tec: tecUsername, hintText: 'Escriba su usuario',),
+      // USUARIO
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: 450,
+        ),
+        child: Container(
+          width: screenWidth * 0.6,
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          child: CustomTextField(tec: tecUsername, hintText: 'Escriba su usuario'),
+        ),
       ),
 
-      //CONTRASEÑA
-      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-        child: CustomTextField(tec: tecPassword, blIsPassword: true, hintText: 'Escriba su contraseña',),
-
+      // CONTRASEÑA
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: 450,
+        ),
+        child: Container(
+          width: screenWidth * 0.6,
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          child: CustomTextField(tec: tecPassword, blIsPassword: true, hintText: 'Escriba su contraseña'),
+        ),
       ),
 
-      //CONFIRMAR CONTRASEÑA
-      Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-        child: CustomTextField(tec: tecRepassword, blIsPassword: true, hintText: 'Repita su contraseña',),
+      // CONFIRMAR CONTRASEÑA
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: 450,
+        ),
+        child: Container(
+          width: screenWidth * 0.6,
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          child: CustomTextField(tec: tecRepassword, blIsPassword: true, hintText: 'Repita su contraseña'),
+        ),
       ),
 
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
