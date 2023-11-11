@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:martinezmarco_actividades1/Singletone/PlatformAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
@@ -11,14 +12,11 @@ class DataHolder {
   late String sPostTitle;
   FbPost? selectedPost;
   FirebaseFirestore db = FirebaseFirestore.instance;
-
+  late PlatformAdmin platformAdmin;
 
   DataHolder._internal() {
-
-  }
-
-  void initDataHolder(){
     sPostTitle = "Título de Post";
+    platformAdmin = PlatformAdmin();
   }
 
   factory DataHolder(){
