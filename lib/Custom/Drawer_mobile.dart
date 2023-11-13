@@ -25,13 +25,13 @@ class Drawer_mobile extends StatelessWidget{
           ListTile(
             selectedColor: Colors.blue,
             selected: true,
-            title: const Text('HOME'),
+            title: const Text('Botón 1'),
             onTap: () {
               onItemTap!(0);
             },
           ),
           ListTile(
-            title: const Text('VOLVER AL LOGIN'),
+            title: const Text("Botón 2"),
             onTap: () {
               onItemTap!(1);
             },

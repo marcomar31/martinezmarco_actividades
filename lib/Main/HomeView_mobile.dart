@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Custom/BottomMenu.dart';
+import '../Custom/Drawer_mobile.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
@@ -27,6 +28,14 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
     return Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
   }
 
+  void fHomeViewDrawerOnTap(int indice){
+    if (indice == 0) {
+      //Botón 1 del menú vertical
+    } else if(indice==1){
+      //Botón 2 del menú vertical
+    }
+  }
+
   @override
   void initState() {
     descargarPosts();
@@ -49,8 +58,8 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
         title: const Text("HOME"),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(104, 126, 255, 1),
-        automaticallyImplyLeading: false,
       ),
+      drawer: Drawer_mobile(onItemTap: fHomeViewDrawerOnTap),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
       backgroundColor: Color.fromRGBO(128, 179, 255, 1),
     );

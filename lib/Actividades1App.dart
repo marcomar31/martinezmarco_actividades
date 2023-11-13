@@ -18,7 +18,7 @@ class Actividades1 extends StatelessWidget{
         DataHolder().platformAdmin.isIOSPlatform()){
 
       materialAppMobile=MaterialApp(title: "Actividades Marco (Android)",
-        initialRoute: '/splashview',
+        initialRoute: '/homeview',
         routes: {
           '/loginview': (context) => LoginView_mobile(),
           '/registerview': (context) => RegisterView(),
