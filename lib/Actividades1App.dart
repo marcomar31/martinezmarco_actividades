@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:martinezmarco_actividades1/Main/ConfiguracionView.dart';
 import 'package:martinezmarco_actividades1/Main/HomeView_mobile.dart';
-import 'package:martinezmarco_actividades1/OnBoarding/LoginView.dart';
+import 'package:martinezmarco_actividades1/OnBoarding/LoginView_mobile.dart';
+import 'package:martinezmarco_actividades1/OnBoarding/LoginView_web.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/RegisterView.dart';
 import 'package:martinezmarco_actividades1/Splash/SplashView.dart';
 import 'Main/HomeView_web.dart';
@@ -19,7 +20,7 @@ class Actividades1 extends StatelessWidget{
       materialAppMobile=MaterialApp(title: "Actividades Marco (Android)",
         initialRoute: '/splashview',
         routes: {
-          '/loginview': (context) => LoginView(),
+          '/loginview': (context) => LoginView_mobile(),
           '/registerview': (context) => RegisterView(),
           '/homeview': (context) => HomeView_mobile(),
           '/creaperfilview': (context) => CreaPerfilView(),
@@ -35,7 +36,7 @@ class Actividades1 extends StatelessWidget{
         ),
         initialRoute: '/splashview',
         routes: {
-          '/loginview': (context) => LoginView(),
+          '/loginview': (context) => LoginView_web(),
           '/registerview': (context) => RegisterView(),
           '/homeview': (context) => HomeView_web(),
           '/creaperfilview': (context) => CreaPerfilView(),

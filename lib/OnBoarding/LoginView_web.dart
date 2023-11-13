@@ -5,7 +5,7 @@ import 'package:martinezmarco_actividades1/Custom/CustomTextField.dart';
 
 import '../FirestoreObjects/FbUsuario.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView_web extends StatelessWidget {
   late BuildContext _context;
   FirebaseFirestore db = FirebaseFirestore.instance;
 
