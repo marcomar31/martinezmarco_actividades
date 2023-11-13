@@ -8,12 +8,12 @@ import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView_web extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _HomeView_webState createState() => _HomeView_webState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeView_webState extends State<HomeView_web> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
@@ -27,35 +27,6 @@ class _HomeViewState extends State<HomeView> {
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
     return Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
-  }
-
-  @override
-  void initState() {
-    descargarPosts();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      body:
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16), child:
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16), child:
-        Center(child:
-          celdasOLista(blIsList)
-        ),
-      ),
-      ),
-      appBar: AppBar(
-        title: const Text("HOME"),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
-        automaticallyImplyLeading: false,
-      ),
-      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
-    );
   }
 
   Widget celdasOLista(bool isList) {
@@ -99,5 +70,41 @@ class _HomeViewState extends State<HomeView> {
       }
     });
 
+  }
+
+
+  @override
+  void initState() {
+    descargarPosts();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Center(
+          child: celdasOLista(blIsList),
+        ),
+      ),
+      appBar: AppBar(
+        title: const Text("HOME"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              // Navegar a la vista de configuración aquí
+              Navigator.of(context).pushNamed('/gestionadministracionview');
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
+      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
+    );
   }
 }

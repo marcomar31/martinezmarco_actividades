@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:martinezmarco_actividades1/Main/ConfiguracionView.dart';
+import 'package:martinezmarco_actividades1/Main/HomeView_mobile.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/LoginView.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/RegisterView.dart';
 import 'package:martinezmarco_actividades1/Splash/SplashView.dart';
-import 'Main/HomeView.dart';
+import 'Main/HomeView_web.dart';
 import 'OnBoarding/CreaPerfilView.dart';
 import 'Singletone/DataHolder.dart';
 
@@ -20,7 +21,7 @@ class Actividades1 extends StatelessWidget{
         routes: {
           '/loginview': (context) => LoginView(),
           '/registerview': (context) => RegisterView(),
-          '/homeview': (context) => HomeView(),
+          '/homeview': (context) => HomeView_mobile(),
           '/creaperfilview': (context) => CreaPerfilView(),
           '/splashview': (context) => SplashView(),
         },
@@ -32,11 +33,11 @@ class Actividades1 extends StatelessWidget{
           brightness: Brightness.dark,
           fontFamily: 'Georgia',
         ),
-        initialRoute: '/gestionadministracionview',
+        initialRoute: '/splashview',
         routes: {
           '/loginview': (context) => LoginView(),
           '/registerview': (context) => RegisterView(),
-          '/homeview': (context) => HomeView(),
+          '/homeview': (context) => HomeView_web(),
           '/creaperfilview': (context) => CreaPerfilView(),
           '/splashview': (context) => SplashView(),
           '/gestionadministracionview': (context) => ConfiguracionView(),

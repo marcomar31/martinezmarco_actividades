@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class ConfiguracionView extends StatelessWidget {
@@ -17,7 +19,7 @@ class ConfiguracionView extends StatelessWidget {
         title: const Text("CONFIGURACIÓN"),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(104, 126, 255, 1),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
       backgroundColor: Color.fromRGBO(128, 179, 255, 1),
     );
