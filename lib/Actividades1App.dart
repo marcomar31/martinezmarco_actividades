@@ -15,9 +15,8 @@ class Actividades1 extends StatelessWidget{
   Widget build(BuildContext context) {
     MaterialApp materialAppMobile = const MaterialApp();
     if(DataHolder().platformAdmin.isAndroidPlatform() ||
-        DataHolder().platformAdmin.isIOSPlatform()){
-
-      materialAppMobile=MaterialApp(title: "Actividades Marco (Android)",
+        DataHolder().platformAdmin.isIOSPlatform()) {
+      materialAppMobile = MaterialApp(title: "Actividades Marco (Android)",
         initialRoute: '/homeview',
         routes: {
           '/loginview': (context) => LoginView_mobile(),
@@ -28,7 +27,7 @@ class Actividades1 extends StatelessWidget{
         },
       );
     }
-    else if(DataHolder().platformAdmin.isWebPlatform()){
+    else if(DataHolder().platformAdmin.isWebPlatform()) {
       materialAppMobile = MaterialApp(title: "Actividades Marco (Web)",
         theme: ThemeData(
           brightness: Brightness.dark,
