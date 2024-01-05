@@ -102,13 +102,15 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                Navigator.of(context).pop();
               },
               child: Text("Cancelar"),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              onPressed: () async {
+                if (await buscarPosts()) {
+                  Navigator.of(context).pop();
+                }
               },
               child: Text("Buscar"),
             ),
@@ -116,6 +118,26 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
         );
       },
     );
+  }
+
+  Future<bool> buscarPosts() async {
+    String searchText = _searchController.text;
+    List<FbPost> results = await fbAdmin.buscarPostsPorTitulo(searchText);
+    print(searchText);
+    if (searchText.isNotEmpty) {
+      if (results.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No se encontraron resultados'), duration: Duration(seconds: 2),),);
+        return false;
+      } else {
+        setState(() {
+          searchResults = results;
+        });
+        return true;
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('El texto de búsqueda no puede estar en blanco'), duration: Duration(seconds: 2),),);
+      return false;
+    }
   }
 
   void descargarPosts() async {
