@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:martinezmarco_actividades1/Singletone/DataHolder.dart';
+import 'package:martinezmarco_actividades1/Singletone/FireBaseAdmin.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/Drawer_mobile.dart';
@@ -15,9 +17,12 @@ class HomeView_mobile extends StatefulWidget {
 class _HomeView_mobileState extends State<HomeView_mobile> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
+  FBAdmin fbAdmin = DataHolder().fbAdmin;
   final List<FbPost> posts = [];
   bool blIsList = false;
   late BottomMenu bottomMenu;
+  final TextEditingController _searchController = TextEditingController();
+  List<FbPost> searchResults = [];
 
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return PostCellView(sText: posts[index].titulo,
@@ -46,18 +51,22 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body:
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16), child:
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16), child:
-      Center(child:
-      celdasOLista(blIsList)
-      ),
-      ),
-      ),
       appBar: AppBar(
         title: const Text("HOME"),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
+        backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () { },
+          ),
+        ],
+      ),
+      body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Center(
+            child: celdasOLista(blIsList),
+          ),
       ),
       drawer: Drawer_mobile(onItemTap: fHomeViewDrawerOnTap),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
