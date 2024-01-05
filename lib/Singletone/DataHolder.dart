@@ -3,16 +3,18 @@ import 'package:martinezmarco_actividades1/Singletone/PlatformAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
+import 'HttpAdmin.dart';
 
 class DataHolder {
 
-  static final DataHolder _dataHolder = new DataHolder._internal();
+  static final DataHolder _dataHolder = DataHolder._internal();
 
   String sNombre = "Kyty DataHolder";
   late String sPostTitle;
   FbPost? selectedPost;
   FirebaseFirestore db = FirebaseFirestore.instance;
   late PlatformAdmin platformAdmin;
+  HttpAdmin httpAdmin = HttpAdmin();
 
   DataHolder._internal() {
     sPostTitle = "Título de Post";
