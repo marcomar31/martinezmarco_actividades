@@ -58,7 +58,9 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () { },
+            onPressed: () {
+              mostrarCuadroDialogoBusqueda();
+            },
           ),
         ],
       ),
@@ -85,6 +87,35 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
     } else {
       return PostGridCellView(posts: posts);
     }
+  }
+
+  void mostrarCuadroDialogoBusqueda() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Buscar Posts"),
+          content: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(hintText: "Ingrese el texto de búsqueda"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              },
+              child: Text("Cancelar"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              },
+              child: Text("Buscar"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void descargarPosts() async {
