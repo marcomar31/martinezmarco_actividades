@@ -8,6 +8,7 @@ import '../Custom/Drawer_mobile.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
+import 'SearchPostsView.dart';
 
 class HomeView_mobile extends StatefulWidget {
   @override
@@ -110,6 +111,12 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
               onPressed: () async {
                 if (await buscarPosts()) {
                   Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SearchPostsView(searchResults: searchResults),
+                    ),
+                  );
+
                 }
               },
               child: Text("Buscar"),
@@ -122,8 +129,8 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
 
   Future<bool> buscarPosts() async {
     String searchText = _searchController.text;
-    List<FbPost> results = await fbAdmin.buscarPostsPorTitulo(searchText);
     print(searchText);
+    List<FbPost> results = await fbAdmin.buscarPostsPorTitulo(searchText);
     if (searchText.isNotEmpty) {
       if (results.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No se encontraron resultados'), duration: Duration(seconds: 2),),);

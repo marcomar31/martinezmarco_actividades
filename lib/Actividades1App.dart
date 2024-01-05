@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:martinezmarco_actividades1/Main/ConfiguracionView.dart';
 import 'package:martinezmarco_actividades1/Main/HomeView_mobile.dart';
+import 'package:martinezmarco_actividades1/Main/SearchPostsView.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/LoginView_mobile.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/LoginView_web.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/RegisterView.dart';
@@ -30,6 +31,7 @@ class Actividades1 extends StatelessWidget{
           '/homeview': (context) => HomeView_mobile(),
           '/creaperfilview': (context) => CreaPerfilView(),
           '/splashview': (context) => SplashView(),
+          '/searchpostsview': (context) => SearchPostsView(searchResults: [],),
         },
       );
     }
