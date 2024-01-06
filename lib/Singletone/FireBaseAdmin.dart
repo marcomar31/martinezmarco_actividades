@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:martinezmarco_actividades1/FirestoreObjects/FbUsuario.dart';
 
 import '../FirestoreObjects/FbPost.dart';
@@ -24,7 +25,7 @@ class FBAdmin{
     try {
       final querySnapshot = await db
           .collection("Posts")
-          .where('titulo', isGreaterThanOrEqualTo: textoBusqueda.toUpperCase())
+          .where('titulo', isEqualTo: textoBusqueda.toUpperCase())
           .get();
 
       List<FbPost> posts = [];
@@ -39,6 +40,11 @@ class FBAdmin{
       print("Error al buscar posts: $e");
       return [];
     }
+  }
+
+  void actualizarPerfilUsuario(FbUsuario usuario) async{
+    String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
+    await db.collection("Usuarios").doc(uidUsuario).set(usuario.toFirestore());
   }
 
 }

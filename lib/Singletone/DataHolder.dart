@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:martinezmarco_actividades1/Singletone/PlatformAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../FirestoreObjects/FbPost.dart';
+import '../FirestoreObjects/FbUsuario.dart';
 import 'FireBaseAdmin.dart';
+import 'GeolocAdmin.dart';
 import 'HttpAdmin.dart';
 
 class DataHolder {
@@ -13,10 +17,13 @@ class DataHolder {
   String sNombre = "Kyty DataHolder";
   late String sPostTitle;
   FbPost? selectedPost;
+  FbUsuario? usuario;
   FirebaseFirestore db = FirebaseFirestore.instance;
+
   late PlatformAdmin platformAdmin;
   HttpAdmin httpAdmin = HttpAdmin();
   FBAdmin fbAdmin = FBAdmin();
+  GeolocAdmin geolocAdmin = GeolocAdmin();
 
   DataHolder._internal() {
     sPostTitle = "Título de Post";
@@ -55,6 +62,33 @@ class DataHolder {
     selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo);
 
     return selectedPost;
+  }
+
+  void suscribeACambiosGPSUsuario(){
+    geolocAdmin.registrarCambiosLoc(posicionDelMovilCambio);
+
+  }
+
+  void posicionDelMovilCambio(Position? position) {
+    if (usuario != null && position != null) {
+      usuario!.geoloc = GeoPoint(position.latitude, position.longitude);
+      fbAdmin.actualizarPerfilUsuario(usuario!);
+    } else {
+      print("Error: Usuario o posición es null. No se puede actualizar la ubicación.");
+    }
+  }
+
+  Future<FbUsuario?> loadFbUsuario() async{
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    DocumentReference<FbUsuario> ref=db.collection("Usuarios")
+        .doc(uid)
+        .withConverter(fromFirestore: FbUsuario.fromFirestore,
+      toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+
+
+    DocumentSnapshot<FbUsuario> docSnap=await ref.get();
+    usuario=docSnap.data();
+    return usuario;
   }
 
 }

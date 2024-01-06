@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:martinezmarco_actividades1/Singletone/DataHolder.dart';
 import 'package:martinezmarco_actividades1/Singletone/FireBaseAdmin.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/Drawer_mobile.dart';
@@ -25,6 +27,8 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   final TextEditingController _searchController = TextEditingController();
   List<FbPost> searchResults = [];
 
+  late Position position;
+
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return PostCellView(sText: posts[index].titulo,
         dFontSize: 20);
@@ -46,6 +50,8 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   void initState() {
     descargarPosts();
     super.initState();
+    determinarPosicionInicial();
+    DataHolder().suscribeACambiosGPSUsuario();
   }
 
   @override
@@ -90,22 +96,26 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
     }
   }
 
+  Future<void> determinarPosicionInicial() async {
+    position = await DataHolder().geolocAdmin.determinePosition();
+  }
+
   void mostrarCuadroDialogoBusqueda() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Buscar Posts"),
+          title: const Text("Buscar Posts"),
           content: TextField(
             controller: _searchController,
-            decoration: InputDecoration(hintText: "Ingrese el texto de búsqueda"),
+            decoration: const InputDecoration(hintText: "Ingrese el texto de búsqueda"),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Cancelar"),
+              child: const Text("Cancelar"),
             ),
             TextButton(
               onPressed: () async {
@@ -119,7 +129,7 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
 
                 }
               },
-              child: Text("Buscar"),
+              child: const Text("Buscar"),
             ),
           ],
         );

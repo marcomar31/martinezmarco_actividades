@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:martinezmarco_actividades1/Custom/CustomTextField.dart';
 
 import '../FirestoreObjects/FbUsuario.dart';
+import '../Singletone/DataHolder.dart';
 
 class LoginView_mobile extends StatefulWidget {
   @override
@@ -37,12 +38,26 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
 
     await FirebaseAuth.instance.signInWithCredential(credential);
 
+    FbUsuario? usuario = await DataHolder().loadFbUsuario();
+    await DataHolder().geolocAdmin.determinePosition();
+    DataHolder().suscribeACambiosGPSUsuario();
+
     Navigator.of(context).popAndPushNamed("/homeview");
   }
 
-  void verificacionCompletada(PhoneAuthCredential credencial) async {
+  void verificacionCompletada(PhoneAuthCredential credencial) async{
     await FirebaseAuth.instance.signInWithCredential(credencial);
-    Navigator.of(context).popAndPushNamed("/homeview");
+
+    FbUsuario? usuario= await DataHolder().loadFbUsuario();
+    await DataHolder().geolocAdmin.determinePosition();
+    DataHolder().suscribeACambiosGPSUsuario();
+
+    if(usuario!=null){
+      Navigator.of(context).popAndPushNamed("/homeview");
+    }
+    else{
+      Navigator.of(context).popAndPushNamed("/perfilview");
+    }
   }
 
   void verificacionFallida(FirebaseAuthException error) {

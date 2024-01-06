@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../FirestoreObjects/FbUsuario.dart';
+import '../Singletone/DataHolder.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -26,17 +27,11 @@ class _SplashViewState extends State<SplashView> {
   void checkSession() async {
     await Future.delayed(Duration(seconds: 4));
     if (FirebaseAuth.instance.currentUser != null) {
-      String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
 
-      DocumentReference<FbUsuario> reference = db
-          .collection("Usuarios")
-          .doc(uidUsuario)
-          .withConverter(fromFirestore: FbUsuario.fromFirestore,
-          toFirestore: (FbUsuario usuario, _) => usuario.toFirestore());
+      FbUsuario? usuario = await DataHolder().loadFbUsuario();
+      await DataHolder().geolocAdmin.determinePosition();
+      DataHolder().suscribeACambiosGPSUsuario();
 
-      DocumentSnapshot<FbUsuario> docSnap = await reference.get();
-
-      FbUsuario usuario = docSnap.data()!;
       if (usuario!=null) {
         Navigator.of(context).popAndPushNamed("/homeview");
       } else {

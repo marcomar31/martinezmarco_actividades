@@ -29,6 +29,7 @@ class GeolocAdmin{
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
+    print(await Geolocator.getCurrentPosition());
     return await Geolocator.getCurrentPosition();
   }
 

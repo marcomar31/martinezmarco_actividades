@@ -4,11 +4,13 @@ class FbUsuario {
   final String nombre;
   final int edad;
   final double altura;
+  GeoPoint geoloc;
 
   FbUsuario({
       required this.nombre,
       required this.edad,
       required this.altura,
+      required this.geoloc,
   });
 
   factory FbUsuario.fromFirestore(
@@ -17,9 +19,10 @@ class FbUsuario {
       ) {
     final data = snapshot.data();
     return FbUsuario(
-      nombre: data?['nombre'],
-      edad: data?['edad'],
-      altura: data?['altura'],
+        nombre: data?['nombre'] != null ? data!['nombre'] : "",
+        edad: data?['edad'] != null ? data!['edad'] : 0,
+        altura: data?['altura'] != null ? data!['altura'] : 0,
+        geoloc:data?['geoloc'] != null ? data!['geoloc'] : const GeoPoint(0, 0)
     );
   }
 
@@ -28,6 +31,7 @@ class FbUsuario {
       if (nombre != null) "nombre": nombre,
       if (edad != null) "edad": edad,
       if (altura != null) "altura": altura,
+      if (geoloc != null) "geoloc": geoloc,
     };
   }
 }

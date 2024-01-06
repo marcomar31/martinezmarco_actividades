@@ -98,7 +98,7 @@ class CreaPerfilView extends StatelessWidget {
 
   void onClickAceptar() {
     bool excepcion = false;
-    FbUsuario usuario = new FbUsuario(nombre: tecNombre.text, edad: int.parse(tecEdad.text), altura: double.parse(tecAltura.text));
+    FbUsuario usuario = FbUsuario(nombre: tecNombre.text, edad: int.parse(tecEdad.text), altura: double.parse(tecAltura.text), geoloc: GeoPoint(0,0));
     try {
       //UID del usuario que está logeado
       String uidUsuario = FirebaseAuth.instance.currentUser!.uid;

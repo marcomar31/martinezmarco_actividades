@@ -24,7 +24,7 @@ class Actividades1 extends StatelessWidget{
             Theme.of(context).textTheme,
           ),
         ),
-        initialRoute: '/homeview',
+        initialRoute: '/splashview',
         routes: {
           '/loginview': (context) => LoginView_mobile(),
           '/registerview': (context) => RegisterView(),
