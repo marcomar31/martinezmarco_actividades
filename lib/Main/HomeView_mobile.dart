@@ -35,12 +35,12 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   }
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    return Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
+    return const Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
   }
 
   void fHomeViewDrawerOnTap(int indice){
     if (indice == 0) {
-      //Botón 1 del menú vertical
+      Navigator.of(context).popAndPushNamed('/mapaview');
     } else if(indice==1){
       //Botón 2 del menú vertical
     }
@@ -78,15 +78,15 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
           ),
       ),
       drawer: Drawer_mobile(onItemTap: fHomeViewDrawerOnTap),
-      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
+      bottomNavigationBar: BottomMenu(onBotonesClicked: onBottonMenuPressed),
+      backgroundColor: const Color.fromRGBO(128, 179, 255, 1),
     );
   }
 
   Widget celdasOLista(bool isList) {
     if (isList) {
       return ListView.separated(
-        padding: EdgeInsets.all(80),
+        padding: const EdgeInsets.all(80),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,
@@ -139,7 +139,6 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
 
   Future<bool> buscarPosts() async {
     String searchText = _searchController.text;
-    print(searchText);
     List<FbPost> results = await fbAdmin.buscarPostsPorTitulo(searchText);
     if (searchText.isNotEmpty) {
       if (results.isEmpty) {
@@ -172,7 +171,6 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   }
 
   void onBottonMenuPressed(int indice) {
-    // TODO: implement onBottonMenuPressed
     setState(() {
       if(indice == 0){
         blIsList = true;

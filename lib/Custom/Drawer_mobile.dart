@@ -25,7 +25,7 @@ class Drawer_mobile extends StatelessWidget{
           ListTile(
             selectedColor: Colors.blue,
             selected: true,
-            title: const Text('Botón 1'),
+            title: const Text('Mapa'),
             onTap: () {
               onItemTap!(0);
             },

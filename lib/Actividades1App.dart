@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:martinezmarco_actividades1/Main/ConfiguracionView.dart';
 import 'package:martinezmarco_actividades1/Main/HomeView_mobile.dart';
+import 'package:martinezmarco_actividades1/Main/MapaView.dart';
 import 'package:martinezmarco_actividades1/Main/SearchPostsView.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/LoginView_mobile.dart';
 import 'package:martinezmarco_actividades1/OnBoarding/LoginView_web.dart';
@@ -19,6 +20,7 @@ class Actividades1 extends StatelessWidget{
     if(DataHolder().platformAdmin.isAndroidPlatform() ||
         DataHolder().platformAdmin.isIOSPlatform()) {
       materialAppMobile = MaterialApp(title: "Actividades Marco (Android)",
+        debugShowCheckedModeBanner: false,
         theme:ThemeData(
           textTheme: GoogleFonts.maliTextTheme(
             Theme.of(context).textTheme,
@@ -32,11 +34,13 @@ class Actividades1 extends StatelessWidget{
           '/creaperfilview': (context) => CreaPerfilView(),
           '/splashview': (context) => SplashView(),
           '/searchpostsview': (context) => SearchPostsView(searchResults: [],),
+          '/mapaview': (context) => MapaView(),
         },
       );
     }
     else if(DataHolder().platformAdmin.isWebPlatform()) {
       materialAppMobile = MaterialApp(title: "Actividades Marco (Web)",
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textTheme: GoogleFonts.anonymousProTextTheme(
             Theme.of(context).textTheme,

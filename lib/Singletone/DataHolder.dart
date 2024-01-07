@@ -78,17 +78,24 @@ class DataHolder {
     }
   }
 
-  Future<FbUsuario?> loadFbUsuario() async{
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    DocumentReference<FbUsuario> ref=db.collection("Usuarios")
-        .doc(uid)
-        .withConverter(fromFirestore: FbUsuario.fromFirestore,
-      toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),);
+  Future<FbUsuario?> loadFbUsuario() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentReference<FbUsuario> ref = db.collection("Usuarios")
+          .doc(uid)
+          .withConverter(
+        fromFirestore: FbUsuario.fromFirestore,
+        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),
+      );
 
-
-    DocumentSnapshot<FbUsuario> docSnap=await ref.get();
-    usuario=docSnap.data();
-    return usuario;
+      DocumentSnapshot<FbUsuario> docSnap = await ref.get();
+      usuario = docSnap.data();
+      return usuario;
+    } else {
+      print("Usuario no autenticado");
+      return null;
+    }
   }
+
 
 }

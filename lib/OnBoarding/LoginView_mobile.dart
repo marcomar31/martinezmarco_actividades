@@ -12,7 +12,6 @@ class LoginView_mobile extends StatefulWidget {
 }
 
 class _LoginView_mobileState extends State<LoginView_mobile> {
-  late BuildContext _context;
 
   FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -22,8 +21,10 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
   bool blMostrarVerificacion = false;
 
   void enviarTelefono_clicked() async {
+    String sTelefono=tecPhone.text;
+
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+34 123 45 67 89",
+      phoneNumber: sTelefono,
       verificationCompleted: verificacionCompletada,
       verificationFailed: verificacionFallida,
       codeSent: codeSent,
@@ -42,13 +43,18 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
     await DataHolder().geolocAdmin.determinePosition();
     DataHolder().suscribeACambiosGPSUsuario();
 
-    Navigator.of(context).popAndPushNamed("/homeview");
+    if(usuario!=null){
+      Navigator.of(context).popAndPushNamed("/homeview");
+    }
+    else{
+      Navigator.of(context).popAndPushNamed("/perfilview");
+    }
   }
 
   void verificacionCompletada(PhoneAuthCredential credencial) async{
     await FirebaseAuth.instance.signInWithCredential(credencial);
 
-    FbUsuario? usuario= await DataHolder().loadFbUsuario();
+    FbUsuario? usuario = await DataHolder().loadFbUsuario();
     await DataHolder().geolocAdmin.determinePosition();
     DataHolder().suscribeACambiosGPSUsuario();
 
@@ -80,23 +86,22 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Column(children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.fromLTRB(50, 30, 50, 10),
           child: Text("POR FAVOR, INTRODUZCA SUS CREDENCIALES PARA ACCEDER"),
         ),
         // NTelefono
         ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minWidth: 450,
           ),
           child: Container(
             width: screenWidth * 0.6,
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: CustomTextField(tec: tecPhone, hintText: "Número de teléfono"),
           ),
         ),
@@ -106,10 +111,10 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
           children: [
             // Botón enviar
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               child: TextButton(
                 onPressed: enviarTelefono_clicked,
-                child: Text("Enviar teléfono"),
+                child: const Text("Enviar teléfono"),
               ),
             ),
           ],),
@@ -117,12 +122,12 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
         // NVerificador
         if(blMostrarVerificacion)
           ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minWidth: 450,
           ),
           child: Container(
             width: screenWidth * 0.6,
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: CustomTextField(tec: tecVerify, hintText: "Número verificador"),
           ),
         ),
@@ -133,10 +138,10 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
             children: [
               // Botón enviar
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
                   onPressed: enviarVerificacion_clicked,
-                  child: Text("Enviar verificación"),
+                  child: const Text("Enviar verificación"),
                 ),
               ),
           ],)
@@ -144,10 +149,10 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
       appBar: AppBar(
         title: const Text("LOGIN"),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
+        backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
+      backgroundColor: const Color.fromRGBO(128, 179, 255, 1),
     );
   }
 }
