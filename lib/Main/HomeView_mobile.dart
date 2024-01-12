@@ -71,6 +71,12 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
         backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
         actions: [
           IconButton(
+            icon: const Icon(Icons.sentiment_very_satisfied),
+            onPressed: () {
+              mostrarCuadroDialogoChiste();
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
               mostrarCuadroDialogoBusqueda();
@@ -113,6 +119,34 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   Future<void> determinarTemperaturaActual() async {
     await determinarPosicionActual();
     temperatura = await httpAdmin.pedirTemperaturasEn(position.latitude, position.longitude);
+  }
+
+  Future<void> mostrarCuadroDialogoChiste() async {
+    String textoChiste = ""; // Inicializamos con un valor por defecto
+
+    await httpAdmin.obtenerChisteRandom().then((chiste) {
+      textoChiste = chiste;
+    }).catchError((error) {
+      print("Error al obtener el chiste: $error");
+    });
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("CHISTE ALEATORIO EN INGLÉS!!!"),
+          content: Text(textoChiste),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Volver"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> mostrarCuadroDialogoTemperatura() async {
@@ -198,6 +232,8 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
       },
     );
   }
+
+
 
   Future<bool> buscarPosts() async {
     String searchText = _searchController.text;

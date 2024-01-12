@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -34,6 +36,14 @@ class HttpAdmin{
 
   }
 
+  Future<String> obtenerChisteRandom() async {
+    final response = await http.get(Uri.parse('https://api.chucknorris.io/jokes/random'));
 
-
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data['value'];
+    } else {
+      throw Exception('No se pudo cargar la broma');
+    }
+  }
 }

@@ -91,7 +91,8 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Column(children: [
+      body: SingleChildScrollView(
+        child: Column(children: [
         const Padding(
           padding: EdgeInsets.fromLTRB(50, 30, 50, 10),
           child: Text("POR FAVOR, INTRODUZCA SUS CREDENCIALES PARA ACCEDER"),
@@ -148,6 +149,7 @@ class _LoginView_mobileState extends State<LoginView_mobile> {
               ),
           ],)
       ],),
+      ),
       appBar: AppBar(
         title: const Text("LOGIN"),
         centerTitle: true,

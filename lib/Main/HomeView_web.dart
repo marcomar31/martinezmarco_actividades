@@ -198,6 +198,34 @@ class _HomeView_webState extends State<HomeView_web> {
     );
   }
 
+  Future<void> mostrarCuadroDialogoChiste() async {
+    String textoChiste = ""; // Inicializamos con un valor por defecto
+
+    await httpAdmin.obtenerChisteRandom().then((chiste) {
+      textoChiste = chiste;
+    }).catchError((error) {
+      print("Error al obtener el chiste: $error");
+    });
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("CHISTE ALEATORIO EN INGLÉS!!!"),
+          content: Text(textoChiste),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Volver"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     descargarPosts();
@@ -226,6 +254,18 @@ class _HomeView_webState extends State<HomeView_web> {
         backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
         automaticallyImplyLeading: false,
         actions: [
+          TextButton(
+            onPressed: () {
+              mostrarCuadroDialogoChiste();
+            },
+            child: const Row(
+              children: [
+                Icon(Icons.sentiment_very_satisfied),
+                SizedBox(width: 8),
+                Text('Chiste random'),
+              ],
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
