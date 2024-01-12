@@ -6,20 +6,20 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../FirestoreObjects/FbUsuario.dart';
 
 class MapaView extends StatefulWidget {
-  const MapaView({super.key});
+  const MapaView({Key? key}) : super(key: key);
 
   @override
   State<MapaView> createState() => MapaViewState();
 }
 
 class MapaViewState extends State<MapaView> {
-  late final Position _ubicacionActual;
+  Position? _ubicacionActual;
   late GoogleMapController _controller;
   Set<Marker> marcadores = {};
   FirebaseFirestore db = FirebaseFirestore.instance;
   final Map<String, FbUsuario> tablaUsuarios = {};
-  late final CameraPosition _kUser;
   MapType _tipoMapa = MapType.normal;
+  CameraPosition? _kUser;
 
   @override
   void initState() {
@@ -34,10 +34,10 @@ class MapaViewState extends State<MapaView> {
       _ubicacionActual = posicion;
       _kUser = CameraPosition(
         target: LatLng(
-          _ubicacionActual.latitude,
-          _ubicacionActual.longitude,
+          _ubicacionActual!.latitude,
+          _ubicacionActual!.longitude,
         ),
-        zoom: 15.151926040649414,
+        zoom: 15.0,
       );
     });
   }
@@ -58,7 +58,8 @@ class MapaViewState extends State<MapaView> {
   }
 
   void usuariosDescargados(QuerySnapshot<FbUsuario> usuariosDescargados) {
-    print("NUMERO DE USUARIOS ACTUALIZADOS>>>> ${usuariosDescargados.docChanges.length}");
+    print("NUMERO DE USUARIOS ACTUALIZADOS>>>> ${usuariosDescargados.docChanges
+        .length}");
 
     Set<Marker> marcTemp = {};
 
@@ -66,7 +67,8 @@ class MapaViewState extends State<MapaView> {
       FbUsuario temp = usuariosDescargados.docChanges[i].doc.data()!;
       tablaUsuarios[usuariosDescargados.docChanges[i].doc.id] = temp;
 
-      if (estaEnRadio(temp.geoloc.latitude, temp.geoloc.longitude, 5)) {
+      if (_ubicacionActual != null &&
+          estaEnRadio(temp.geoloc.latitude, temp.geoloc.longitude, 5)) {
         Marker marcadorTemp = Marker(
           markerId: MarkerId(usuariosDescargados.docChanges[i].doc.id),
           position: LatLng(temp.geoloc.latitude, temp.geoloc.longitude),
@@ -79,7 +81,6 @@ class MapaViewState extends State<MapaView> {
       }
     }
 
-    // Verificar si el widget todavía está montado antes de llamar a setState
     if (mounted) {
       setState(() {
         marcadores.addAll(marcTemp);
@@ -92,9 +93,13 @@ class MapaViewState extends State<MapaView> {
   }
 
   bool estaEnRadio(double latitud, double longitud, double radio) {
+    if (_ubicacionActual == null) {
+      return false;
+    }
+
     double distancia = Geolocator.distanceBetween(
-      _ubicacionActual.latitude,
-      _ubicacionActual.longitude,
+      _ubicacionActual!.latitude,
+      _ubicacionActual!.longitude,
       latitud,
       longitud,
     );
@@ -155,13 +160,26 @@ class MapaViewState extends State<MapaView> {
           ),
         ],
       ),
-      body: GoogleMap(
-        mapType: _tipoMapa,
-        initialCameraPosition: _kUser,
-        onMapCreated: (GoogleMapController controller) {
-          _controller = controller;
-        },
-        markers: marcadores,
+      body: Container(
+        color: const Color.fromRGBO(128, 179, 255, 1),
+        child: Center(
+          child: _ubicacionActual != null
+              ? GoogleMap(
+            mapType: _tipoMapa,
+            initialCameraPosition: CameraPosition(
+              target: LatLng(
+                _ubicacionActual!.latitude,
+                _ubicacionActual!.longitude,
+              ),
+              zoom: 15.0,
+            ),
+            onMapCreated: (GoogleMapController controller) {
+              _controller = controller;
+            },
+            markers: marcadores,
+          )
+              : const CircularProgressIndicator(),
+        ),
       ),
     );
   }

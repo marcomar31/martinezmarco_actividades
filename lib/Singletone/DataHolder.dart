@@ -66,7 +66,6 @@ class DataHolder {
 
   void suscribeACambiosGPSUsuario(){
     geolocAdmin.registrarCambiosLoc(posicionDelMovilCambio);
-
   }
 
   void posicionDelMovilCambio(Position? position) {
