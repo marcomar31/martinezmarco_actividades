@@ -25,7 +25,7 @@ class FBAdmin{
     try {
       final querySnapshot = await db
           .collection("Posts")
-          .where('titulo', isEqualTo: textoBusqueda.toUpperCase())
+          .where('titulo', isGreaterThanOrEqualTo: textoBusqueda.toUpperCase())
           .get();
 
       List<FbPost> posts = [];

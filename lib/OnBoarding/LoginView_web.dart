@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:martinezmarco_actividades1/Custom/CustomTextField.dart';
 
 import '../FirestoreObjects/FbUsuario.dart';
+import '../Singletone/DataHolder.dart';
 
 class LoginView_web extends StatelessWidget {
   late BuildContext _context;
@@ -93,20 +94,18 @@ class LoginView_web extends StatelessWidget {
         email: tecUsername.text.toLowerCase(),
         password: tecPassword.text,
       );
-      String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
 
-      DocumentReference<FbUsuario> ref = db.collection("Usuarios").doc(uidUsuario).withConverter(
-        fromFirestore: FbUsuario.fromFirestore,
-        toFirestore: (FbUsuario usuario, _) => usuario.toFirestore(),
-      );
+      FbUsuario? usuario = await DataHolder().loadFbUsuario();
+      await DataHolder().geolocAdmin.determinePosition();
+      DataHolder().suscribeACambiosGPSUsuario();
 
-      DocumentSnapshot<FbUsuario> docSnap = await ref.get();
-      if (docSnap.exists) {
-        FbUsuario usuario = docSnap.data()!;
+      if(usuario!=null) {
         Navigator.of(_context).popAndPushNamed('/homeview');
       } else {
-        Navigator.of(_context).popAndPushNamed("/creaperfilview");
+        Navigator.of(_context).popAndPushNamed("/perfilview");
       }
+
+
       ScaffoldMessenger.of(_context).showSnackBar(const SnackBar(content: Text("Usuario loggeado exitosamente!")));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

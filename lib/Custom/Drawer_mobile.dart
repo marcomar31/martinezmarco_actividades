@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Drawer_mobile extends StatelessWidget{
 
-  Function(int indice)? onItemTap;
+  final Function(int indice)? onItemTap;
 
   Drawer_mobile({super.key,required this.onItemTap
   });
@@ -24,15 +24,14 @@ class Drawer_mobile extends StatelessWidget{
           ),
           ListTile(
             leading: const Icon(Icons.map),
-            selectedColor: Colors.blue,
-            selected: true,
             title: const Text('Mapa'),
             onTap: () {
               onItemTap!(0);
             },
           ),
           ListTile(
-            title: const Text("Botón 2"),
+            leading: const Icon(Icons.thermostat),
+            title: const Text("Consultar temperatura"),
             onTap: () {
               onItemTap!(1);
             },

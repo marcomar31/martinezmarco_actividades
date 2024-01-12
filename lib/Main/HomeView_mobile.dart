@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:martinezmarco_actividades1/Singletone/DataHolder.dart';
 import 'package:martinezmarco_actividades1/Singletone/FireBaseAdmin.dart';
+import 'package:martinezmarco_actividades1/Singletone/HttpAdmin.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/Drawer_mobile.dart';
@@ -27,8 +28,9 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   late BottomMenu bottomMenu;
   final TextEditingController _searchController = TextEditingController();
   List<FbPost> searchResults = [];
-
   late Position position;
+  HttpAdmin httpAdmin = DataHolder().httpAdmin;
+  late double temperatura;
 
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return PostCellView(sText: posts[index].titulo,
@@ -43,7 +45,7 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
     if (indice == 0) {
       Navigator.of(context).popAndPushNamed('/mapaview');
     } else if(indice==1){
-      //Botón 2 del menú vertical
+      mostrarCuadroDialogoTemperatura();
     }
   }
 
@@ -51,13 +53,17 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
   void initState() {
     descargarPosts();
     super.initState();
-    determinarPosicionInicial();
+    inicializarDatos();
+  }
+
+  Future<void> inicializarDatos() async {
+    await determinarPosicionActual();
+    await determinarTemperaturaActual();
     DataHolder().suscribeACambiosGPSUsuario();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: const Text("HOME"),
@@ -97,8 +103,63 @@ class _HomeView_mobileState extends State<HomeView_mobile> {
     }
   }
 
-  Future<void> determinarPosicionInicial() async {
-    position = await DataHolder().geolocAdmin.determinePosition();
+  Future<void> determinarPosicionActual() async {
+    final positionTemp = await DataHolder().geolocAdmin.determinePosition();
+    setState(() {
+      position = positionTemp;
+    });
+  }
+
+  Future<void> determinarTemperaturaActual() async {
+    await determinarPosicionActual();
+    temperatura = await httpAdmin.pedirTemperaturasEn(position.latitude, position.longitude);
+  }
+
+  Future<void> mostrarCuadroDialogoTemperatura() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("TEMPERATURA ACTUAL"),
+          content: Container(
+            height: 80.0, // Ajusta la altura según tus necesidades
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Cargando..."),
+                SizedBox(height: 10.0),
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    try {
+      await determinarTemperaturaActual();
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("TEMPERATURA ACTUAL"),
+            content: Text("La temperatura en su ubicacion actual es de $temperatura ºC"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Volver"),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (error) {
+      print("Error al obtener la temperatura: $error");
+      Navigator.of(context).pop();
+    }
   }
 
   void mostrarCuadroDialogoBusqueda() {

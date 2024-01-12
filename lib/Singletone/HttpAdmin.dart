@@ -12,6 +12,7 @@ class HttpAdmin{
         { 'latitude': latitud.toString(),
           'longitude': longitud.toString(),
           'hourly': 'temperature_2m',
+          'timezone': 'auto'
         });
 
     var response = await http.get(url);
