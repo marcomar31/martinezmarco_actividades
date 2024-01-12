@@ -7,11 +7,11 @@ class CustomTextField extends StatelessWidget {
   bool blIsPassword;
 
   // Constructor que acepta el hintText como parámetro
-  CustomTextField({Key? key,
+  CustomTextField({super.key,
     this.hintText="",
     required this.tec,
     this.blIsPassword = false,
-  }) :super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

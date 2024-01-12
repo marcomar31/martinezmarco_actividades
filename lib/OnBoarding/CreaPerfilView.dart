@@ -14,6 +14,8 @@ class CreaPerfilView extends StatelessWidget {
   TextEditingController tecEdad = TextEditingController();
   TextEditingController tecAltura = TextEditingController();
 
+  CreaPerfilView({super.key});
+
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -24,36 +26,36 @@ class CreaPerfilView extends StatelessWidget {
         children: [
           // NOMBRE
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minWidth: 450,
             ),
             child: Container(
               width: screenWidth * 0.6,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: CustomTextField(tec: tecNombre, hintText: 'Escriba su nombre'),
             ),
           ),
 
           // EDAD
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minWidth: 450,
             ),
             child: Container(
               width: screenWidth * 0.6,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: CustomTextField(tec: tecEdad, hintText: 'Escriba su edad'),
             ),
           ),
 
           // ALTURA
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minWidth: 450,
             ),
             child: Container(
               width: screenWidth * 0.6,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: CustomTextField(
                   tec: tecAltura, hintText: 'Escriba su altura'),
             ),
@@ -64,18 +66,18 @@ class CreaPerfilView extends StatelessWidget {
             children: [
               // Botón aceptar
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
                   onPressed: onClickAceptar,
-                  child: Text("ACEPTAR"),
+                  child: const Text("ACEPTAR"),
                 ),
               ),
               // Botón cancelar
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
                   onPressed: onClickCancelar,
-                  child: Text("CANCELAR"),
+                  child: const Text("CANCELAR"),
                 ),
               ),
             ],
@@ -85,10 +87,10 @@ class CreaPerfilView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("CREAR PERFIL"),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
+        backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
+      backgroundColor: const Color.fromRGBO(128, 179, 255, 1),
     );
   }
 
@@ -98,13 +100,13 @@ class CreaPerfilView extends StatelessWidget {
 
   void onClickAceptar() {
     bool excepcion = false;
-    FbUsuario usuario = FbUsuario(nombre: tecNombre.text, edad: int.parse(tecEdad.text), altura: double.parse(tecAltura.text), geoloc: GeoPoint(0,0));
+    FbUsuario usuario = FbUsuario(nombre: tecNombre.text, edad: int.parse(tecEdad.text), altura: double.parse(tecAltura.text), geoloc: const GeoPoint(0,0));
     try {
       //UID del usuario que está logeado
       String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
       db.collection('Usuarios').doc(uidUsuario).set(usuario.toFirestore());
     } on Exception {
-      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Se ha producido un error al completar el perfil del usuario")));
+      ScaffoldMessenger.of(_context).showSnackBar(const SnackBar(content: Text("Se ha producido un error al completar el perfil del usuario")));
       excepcion = true;
     }
     if (!excepcion) {

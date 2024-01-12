@@ -7,6 +7,8 @@ import '../FirestoreObjects/FbUsuario.dart';
 import '../Singletone/DataHolder.dart';
 
 class LoginView_mobile extends StatefulWidget {
+  const LoginView_mobile({super.key});
+
   @override
   State<LoginView_mobile> createState() => _LoginView_mobileState();
 }

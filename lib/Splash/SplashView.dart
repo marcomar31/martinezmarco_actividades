@@ -6,6 +6,8 @@ import '../FirestoreObjects/FbUsuario.dart';
 import '../Singletone/DataHolder.dart';
 
 class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -25,7 +27,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void checkSession() async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
     if (FirebaseAuth.instance.currentUser != null) {
 
       FbUsuario? usuario = await DataHolder().loadFbUsuario();
@@ -44,7 +46,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

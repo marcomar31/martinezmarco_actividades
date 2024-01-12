@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,8 @@ import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
 
 class HomeView_web extends StatefulWidget {
+  const HomeView_web({super.key});
+
   @override
   _HomeView_webState createState() => _HomeView_webState();
 }
@@ -26,13 +27,13 @@ class _HomeView_webState extends State<HomeView_web> {
   }
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    return Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
+    return const Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
   }
 
   Widget celdasOLista(bool isList) {
     if (isList) {
       return ListView.separated(
-        padding: EdgeInsets.all(80),
+        padding: const EdgeInsets.all(80),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,
@@ -83,7 +84,7 @@ class _HomeView_webState extends State<HomeView_web> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Center(
           child: celdasOLista(blIsList),
         ),
@@ -91,11 +92,17 @@ class _HomeView_webState extends State<HomeView_web> {
       appBar: AppBar(
         title: const Text("HOME"),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
+        backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.map),
+            onPressed: () {
+              Navigator.of(context).pushNamed("/mapaview");
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
             onPressed: () {
               // Navegar a la vista de configuración aquí
               Navigator.of(context).pushNamed('/gestionadministracionview');
@@ -103,8 +110,8 @@ class _HomeView_webState extends State<HomeView_web> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
+      bottomNavigationBar: BottomMenu(onBotonesClicked: onBottonMenuPressed),
+      backgroundColor: const Color.fromRGBO(128, 179, 255, 1),
     );
   }
 }

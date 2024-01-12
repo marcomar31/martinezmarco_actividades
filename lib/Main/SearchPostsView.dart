@@ -4,7 +4,6 @@ import 'package:martinezmarco_actividades1/Singletone/DataHolder.dart';
 import 'package:martinezmarco_actividades1/Singletone/FireBaseAdmin.dart';
 
 import '../Custom/BottomMenu.dart';
-import '../Custom/Drawer_mobile.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
@@ -12,7 +11,7 @@ import '../FirestoreObjects/FbPost.dart';
 class SearchPostsView extends StatefulWidget {
   final List<FbPost> searchResults;
 
-  SearchPostsView({required this.searchResults});
+  const SearchPostsView({super.key, required this.searchResults});
 
   @override
   _SearchPostsViewState createState() => _SearchPostsViewState();
@@ -32,7 +31,7 @@ class _SearchPostsViewState extends State<SearchPostsView> {
   }
 
   Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    return Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
+    return const Divider(color: Color.fromRGBO(37, 77, 152, 1.0), thickness: 2,);
   }
 
   @override
@@ -64,7 +63,7 @@ class _SearchPostsViewState extends State<SearchPostsView> {
   Widget celdasOLista(bool isList) {
     if (isList) {
       return ListView.separated(
-        padding: EdgeInsets.all(80),
+        padding: const EdgeInsets.all(80),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,

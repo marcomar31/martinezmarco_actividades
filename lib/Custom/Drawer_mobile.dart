@@ -4,8 +4,8 @@ class Drawer_mobile extends StatelessWidget{
 
   Function(int indice)? onItemTap;
 
-  Drawer_mobile({Key? key,required this.onItemTap
-  }) : super(key: key);
+  Drawer_mobile({super.key,required this.onItemTap
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ class Drawer_mobile extends StatelessWidget{
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.map),
             selectedColor: Colors.blue,
             selected: true,
             title: const Text('Mapa'),

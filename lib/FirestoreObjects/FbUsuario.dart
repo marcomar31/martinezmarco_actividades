@@ -28,10 +28,10 @@ class FbUsuario {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (nombre != null) "nombre": nombre,
-      if (edad != null) "edad": edad,
-      if (altura != null) "altura": altura,
-      if (geoloc != null) "geoloc": geoloc,
+      "nombre": nombre,
+      "edad": edad,
+      "altura": altura,
+      "geoloc": geoloc,
     };
   }
 }

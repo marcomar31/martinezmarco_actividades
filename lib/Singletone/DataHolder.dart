@@ -52,14 +52,14 @@ class DataHolder {
     await Future.delayed(const Duration(seconds: 5));
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? fbpost_titulo = prefs.getString('fbpost_titulo');
-    fbpost_titulo ??= "";
+    String? fbpostTitulo = prefs.getString('fbpost_titulo');
+    fbpostTitulo ??= "";
 
-    String? fbpost_cuerpo = prefs.getString('fbpost_cuerpo');
-    fbpost_cuerpo ??= "";
+    String? fbpostCuerpo = prefs.getString('fbpost_cuerpo');
+    fbpostCuerpo ??= "";
 
-    print("SHARED PREFERENCES --> " + fbpost_titulo);
-    selectedPost = FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo);
+    print("SHARED PREFERENCES --> $fbpostTitulo");
+    selectedPost = FbPost(titulo: fbpostTitulo, cuerpo: fbpostCuerpo);
 
     return selectedPost;
   }

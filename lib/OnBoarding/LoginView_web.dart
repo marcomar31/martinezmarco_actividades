@@ -12,6 +12,8 @@ class LoginView_web extends StatelessWidget {
   TextEditingController tecUsername = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
 
+  LoginView_web({super.key});
+
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -20,30 +22,30 @@ class LoginView_web extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.fromLTRB(50, 30, 50, 10),
             child: Text("POR FAVOR, INTRODUZCA SUS CREDENCIALES PARA ACCEDER"),
           ),
           // USUARIO
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minWidth: 450,
             ),
             child: Container(
               width: screenWidth * 0.6,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: CustomTextField(tec: tecUsername, hintText: 'Escriba su usuario'),
             ),
           ),
 
           // CONTRASEÑA
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minWidth: 450,
             ),
             child: Container(
               width: screenWidth * 0.6,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: CustomTextField(tec: tecPassword, blIsPassword: true, hintText: 'Escriba su contraseña'),
             ),
           ),
@@ -53,18 +55,18 @@ class LoginView_web extends StatelessWidget {
             children: [
               // Botón aceptar
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
                   onPressed: onClickAceptar,
-                  child: Text("ACEPTAR"),
+                  child: const Text("ACEPTAR"),
                 ),
               ),
               // Botón registrar
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: TextButton(
                   onPressed: onClickRegistrar,
-                  child: Text("REGISTRAR"),
+                  child: const Text("REGISTRAR"),
                 ),
               ),
             ],
@@ -74,10 +76,10 @@ class LoginView_web extends StatelessWidget {
       appBar: AppBar(
         title: const Text("LOGIN"),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(104, 126, 255, 1),
+        backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Color.fromRGBO(128, 179, 255, 1),
+      backgroundColor: const Color.fromRGBO(128, 179, 255, 1),
     );
   }
 
@@ -101,18 +103,16 @@ class LoginView_web extends StatelessWidget {
       DocumentSnapshot<FbUsuario> docSnap = await ref.get();
       if (docSnap.exists) {
         FbUsuario usuario = docSnap.data()!;
-        if (usuario != null) {
-          Navigator.of(_context).popAndPushNamed('/homeview');
-        }
-      } else {
+        Navigator.of(_context).popAndPushNamed('/homeview');
+            } else {
         Navigator.of(_context).popAndPushNamed("/creaperfilview");
       }
-      ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Usuario loggeado exitosamente!")));
+      ScaffoldMessenger.of(_context).showSnackBar(const SnackBar(content: Text("Usuario loggeado exitosamente!")));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("Ese usuario no está registrado")));
+        ScaffoldMessenger.of(_context).showSnackBar(const SnackBar(content: Text("Ese usuario no está registrado")));
       } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text("La contraseña es incorrecta")));
+        ScaffoldMessenger.of(_context).showSnackBar(const SnackBar(content: Text("La contraseña es incorrecta")));
       }
     }
   }

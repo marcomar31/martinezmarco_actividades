@@ -13,6 +13,8 @@ import 'OnBoarding/CreaPerfilView.dart';
 import 'Singletone/DataHolder.dart';
 
 class Actividades1 extends StatelessWidget{
+  const Actividades1({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +30,13 @@ class Actividades1 extends StatelessWidget{
         ),
         initialRoute: '/splashview',
         routes: {
-          '/loginview': (context) => LoginView_mobile(),
+          '/loginview': (context) => const LoginView_mobile(),
           '/registerview': (context) => RegisterView(),
-          '/homeview': (context) => HomeView_mobile(),
+          '/homeview': (context) => const HomeView_mobile(),
           '/creaperfilview': (context) => CreaPerfilView(),
-          '/splashview': (context) => SplashView(),
-          '/searchpostsview': (context) => SearchPostsView(searchResults: [],),
-          '/mapaview': (context) => MapaView(),
+          '/splashview': (context) => const SplashView(),
+          '/searchpostsview': (context) => const SearchPostsView(searchResults: [],),
+          '/mapaview': (context) => const MapaView(),
         },
       );
     }
@@ -52,10 +54,11 @@ class Actividades1 extends StatelessWidget{
         routes: {
           '/loginview': (context) => LoginView_web(),
           '/registerview': (context) => RegisterView(),
-          '/homeview': (context) => HomeView_web(),
+          '/homeview': (context) => const HomeView_web(),
           '/creaperfilview': (context) => CreaPerfilView(),
-          '/splashview': (context) => SplashView(),
-          '/gestionadministracionview': (context) => ConfiguracionView(),
+          '/splashview': (context) => const SplashView(),
+          '/gestionadministracionview': (context) => const ConfiguracionView(),
+          '/mapaview': (context) => const MapaView(),
         },
       );
     }

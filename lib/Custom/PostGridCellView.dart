@@ -23,13 +23,12 @@ class PostGridCellView extends StatelessWidget {
       ),
       itemCount: posts.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(child:
+        return Container(color: Colors.blue,
+          alignment: Alignment.center,child:
           PostCellView(
             sText: posts[index].titulo,
             dFontSize: 20,
           ),
-          color: Colors.blue,
-          alignment: Alignment.center,
         );
       },
     );

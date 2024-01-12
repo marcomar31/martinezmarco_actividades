@@ -13,18 +13,13 @@ class MapaView extends StatefulWidget {
 }
 
 class MapaViewState extends State<MapaView> {
-  late Position _ubicacionActual;
+  late final Position _ubicacionActual;
   late GoogleMapController _controller;
-  Set<Marker> marcadores = Set();
+  Set<Marker> marcadores = {};
   FirebaseFirestore db = FirebaseFirestore.instance;
-  final Map<String, FbUsuario> tablaUsuarios = Map();
-
-  late CameraPosition _kUser = CameraPosition(
-    bearing: 0,
-    target: LatLng(0, 0),
-    tilt: 0,
-    zoom: 0,
-  );
+  final Map<String, FbUsuario> tablaUsuarios = {};
+  late final CameraPosition _kUser;
+  MapType _tipoMapa = MapType.normal;
 
   @override
   void initState() {
@@ -38,12 +33,10 @@ class MapaViewState extends State<MapaView> {
     setState(() {
       _ubicacionActual = posicion;
       _kUser = CameraPosition(
-        bearing: 192.8334901395799,
         target: LatLng(
           _ubicacionActual.latitude,
           _ubicacionActual.longitude,
         ),
-        tilt: 59.440717697143555,
         zoom: 15.151926040649414,
       );
     });
@@ -65,10 +58,9 @@ class MapaViewState extends State<MapaView> {
   }
 
   void usuariosDescargados(QuerySnapshot<FbUsuario> usuariosDescargados) {
-    print("NUMERO DE USUARIOS ACTUALIZADOS>>>> " +
-        usuariosDescargados.docChanges.length.toString());
+    print("NUMERO DE USUARIOS ACTUALIZADOS>>>> ${usuariosDescargados.docChanges.length}");
 
-    Set<Marker> marcTemp = Set();
+    Set<Marker> marcTemp = {};
 
     for (int i = 0; i < usuariosDescargados.docChanges.length; i++) {
       FbUsuario temp = usuariosDescargados.docChanges[i].doc.data()!;
@@ -112,6 +104,12 @@ class MapaViewState extends State<MapaView> {
     return distanciaEnKilometros <= radio;
   }
 
+  void cambiarTipoMapa(MapType nuevoTipoMapa) {
+    setState(() {
+      _tipoMapa = nuevoTipoMapa;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,9 +117,46 @@ class MapaViewState extends State<MapaView> {
         title: const Text("MAPA"),
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(104, 126, 255, 1),
+        actions: [
+          PopupMenuButton(
+            onSelected: (caso) {
+              switch (caso) {
+                case 'mapaNormal':
+                  cambiarTipoMapa(MapType.normal);
+                  break;
+                case 'mapa2':
+                  cambiarTipoMapa(MapType.satellite);
+                  break;
+                case 'mapa3':
+                  cambiarTipoMapa(MapType.hybrid);
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem(
+                value: 'mapaNormal',
+                child: ListTile(
+                  title: Text('Mapa normal'),
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'mapa2',
+                child: ListTile(
+                  title: Text('Mapa satélite'),
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'mapa3',
+                child: ListTile(
+                  title: Text('Mapa híbrido'),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: GoogleMap(
-        mapType: MapType.normal,
+        mapType: _tipoMapa,
         initialCameraPosition: _kUser,
         onMapCreated: (GoogleMapController controller) {
           _controller = controller;

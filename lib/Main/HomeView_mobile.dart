@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:martinezmarco_actividades1/Singletone/DataHolder.dart';
 import 'package:martinezmarco_actividades1/Singletone/FireBaseAdmin.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/Drawer_mobile.dart';
@@ -13,6 +12,8 @@ import '../FirestoreObjects/FbPost.dart';
 import 'SearchPostsView.dart';
 
 class HomeView_mobile extends StatefulWidget {
+  const HomeView_mobile({super.key});
+
   @override
   _HomeView_mobileState createState() => _HomeView_mobileState();
 }
