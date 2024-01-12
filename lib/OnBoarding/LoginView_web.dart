@@ -12,7 +12,7 @@ class LoginView_web extends StatelessWidget {
   TextEditingController tecUsername = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
 
-  LoginView_web({super.key});
+  LoginView_web({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class LoginView_web extends StatelessWidget {
       if (docSnap.exists) {
         FbUsuario usuario = docSnap.data()!;
         Navigator.of(_context).popAndPushNamed('/homeview');
-            } else {
+      } else {
         Navigator.of(_context).popAndPushNamed("/creaperfilview");
       }
       ScaffoldMessenger.of(_context).showSnackBar(const SnackBar(content: Text("Usuario loggeado exitosamente!")));

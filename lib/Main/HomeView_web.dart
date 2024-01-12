@@ -1,11 +1,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../Custom/BottomMenu.dart';
 import '../Custom/PostCellView.dart';
 import '../Custom/PostGridCellView.dart';
 import '../FirestoreObjects/FbPost.dart';
+import '../Singletone/DataHolder.dart';
 
 class HomeView_web extends StatefulWidget {
   const HomeView_web({super.key});
@@ -20,6 +22,8 @@ class _HomeView_webState extends State<HomeView_web> {
   final List<FbPost> posts = [];
   bool blIsList = false;
   late BottomMenu bottomMenu;
+
+  late Position position;
 
   Widget? creadorDeItemLista(BuildContext context, int index) {
     return PostCellView(sText: posts[index].titulo,
@@ -73,6 +77,9 @@ class _HomeView_webState extends State<HomeView_web> {
 
   }
 
+  Future<void> determinarPosicionInicial() async {
+    position = await DataHolder().geolocAdmin.determinePosition();
+  }
 
   @override
   void initState() {
